@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.zz.business.guide</groupId>
+    <artifactId>java-business-guide</artifactId>
+    <description>java-business-guide</description>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>alipay-sandbox</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <junit.jupiter.api.version>5.10.2</junit.jupiter.api.version>
+        <lombok.version>1.18.30</lombok.version>
+
+        <servlet.api.version>6.0.0</servlet.api.version>
+        <servlet.jsp.api.version>3.1.1</servlet.jsp.api.version>
+        <servlet.jsp.jstl.api.version>3.0.0</servlet.jsp.jstl.api.version>
+        <taglibs.standard.impl.version>1.2.5</taglibs.standard.impl.version>
+        <taglibs.standard.spec.version>1.2.5</taglibs.standard.spec.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.jupiter.api.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${servlet.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api -->
+            <dependency>
+                <groupId>jakarta.servlet.jsp</groupId>
+                <artifactId>jakarta.servlet.jsp-api</artifactId>
+                <version>${servlet.jsp.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+            <dependency>
+                <groupId>jakarta.servlet.jsp.jstl</groupId>
+                <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+                <version>${servlet.jsp.jstl.api.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
+            <dependency>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-impl</artifactId>
+                <version>${taglibs.standard.impl.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-spec -->
+            <dependency>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-spec</artifactId>
+                <version>${taglibs.standard.spec.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>nexus-aliyun</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!--在build中配置resources，来防止我们资源导出失败的问题
+          1. 不同的idea/maven 可能提示的错误不一样
+          2. 不变应万变，少什么文件，就增加相应配置即可
+          3. 含义是将 src/main/java目录和子目录 和 src/main/resources目录和子目录
+          的资源文件 xml 和 properties在build项目时，导出到对应的target目录下
+      -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/**/*.xml</include>
+                    <include>**/**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>
